@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HouseGoT {
 
+	private int id;
+
 	@JsonProperty("swornMembers")
 	private List<String> swornMembers = new ArrayList<>();
 
@@ -59,6 +61,11 @@ public class HouseGoT {
 
 	public HouseGoT() {
 	}
+
+
+	public int getId() { return id; }
+	public void setId(int id) { this.id = id; }
+
 
 	public void setSwornMembers(List<String> swornMembers){
 		this.swornMembers = swornMembers;

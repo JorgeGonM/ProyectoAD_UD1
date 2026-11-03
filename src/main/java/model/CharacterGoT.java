@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CharacterGoT {
+public class 	CharacterGoT {
+
+	private int id;
 
 	@JsonProperty("aliases")
 	private List<String> aliases = new ArrayList<>();
@@ -60,6 +62,9 @@ public class CharacterGoT {
 
 	public CharacterGoT() {
 	}
+
+	public int getId() { return id; }
+	public void setId(int id) { this.id = id; }
 
 	public void setAliases(List<String> aliases){
 		this.aliases = aliases;
