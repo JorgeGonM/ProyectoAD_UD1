@@ -29,7 +29,7 @@ public class FileExporter {
             writer.write("ID,Name,Culture,Gender\n");
             for (CharacterGoT c : characters) {
                 writer.write(String.format("%s,%s,%s,%s\n",
-                        c.getId() != null ? c.getId() : "",
+                        c.getId() != 0 ? c.getId() : "",
                         c.getName() != null ? c.getName() : "",
                         c.getCulture() != null ? c.getCulture() : "",
                         c.getGender() != null ? c.getGender() : ""
