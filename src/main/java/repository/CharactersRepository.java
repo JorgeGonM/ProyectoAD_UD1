@@ -12,15 +12,15 @@ public class CharactersRepository implements CrudRepository<CharacterGoT> {
 
     private final DatabaseService dbService = new DatabaseService();
 
-    @Override
-    public List<CharacterGoT> findAll() {
-        try {
-            return findAllOrThrow();
-        } catch (SQLException e) {
-            System.err.println("Error al obtener todos los personajes: " + e.getMessage());
-            return new ArrayList<>();
-        }
-    }
+//    @Override
+//    public List<CharacterGoT> findAll() {
+//        try {
+//            return findAllOrThrow();
+//        } catch (SQLException e) {
+//            System.err.println("Error al obtener todos los personajes: " + e.getMessage());
+//            return new ArrayList<>();
+//        }
+//    }
 
     public List<CharacterGoT> findAllOrThrow() throws SQLException {
         List<CharacterGoT> characters = new ArrayList<>();

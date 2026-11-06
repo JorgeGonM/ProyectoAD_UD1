@@ -16,11 +16,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import model.CharacterGoT;
 import repository.CharactersRepository;
 import service.ApiService;
+import storage.FileExporter;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -43,6 +48,8 @@ public class CharacterController {
     private ComboBox<String> genderFilter;
     @FXML
     private Button refreshButton;
+    @FXML
+    private Button exportButton;
     @FXML
     private Button addButton;
     @FXML
@@ -104,6 +111,63 @@ public class CharacterController {
     private void refreshCharacters() {
         // La sincronización con la API solo se ejecuta cuando el usuario la solicita.
         synchronizeCharacters(false);
+    }
+
+    @FXML
+    private void exportCharacters() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Exportar personajes");
+        chooser.setInitialFileName("personajes_exportados");
+        FileChooser.ExtensionFilter csvFilter =
+                new FileChooser.ExtensionFilter("Archivo CSV (*.csv)", "*.csv");
+        FileChooser.ExtensionFilter jsonFilter =
+                new FileChooser.ExtensionFilter("Archivo JSON (*.json)", "*.json");
+        chooser.getExtensionFilters().addAll(csvFilter, jsonFilter);
+        chooser.setSelectedExtensionFilter(csvFilter);
+
+        File file = chooser.showSaveDialog(charactersTable.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+
+        String fileName = file.getName().toLowerCase(Locale.ROOT);
+        boolean exportJson = fileName.endsWith(".json")
+                || (!fileName.endsWith(".csv")
+                && chooser.getSelectedExtensionFilter() == jsonFilter);
+        String extension = exportJson ? ".json" : ".csv";
+        if (!fileName.endsWith(".json") && !fileName.endsWith(".csv")) {
+            file = new File(file.getParentFile(), file.getName() + extension);
+        }
+
+        File destination = file;
+        List<CharacterGoT> charactersToExport = new ArrayList<>(characters);
+        setCrudControlsDisabled(true);
+        statusLabel.setText("Exportando personajes...");
+
+        Task<Void> exportTask = new Task<>() {
+            @Override
+            protected Void call() throws IOException {
+                if (exportJson) {
+                    FileExporter.exportToJSON(charactersToExport, destination.getAbsolutePath());
+                } else {
+                    FileExporter.exportToCSV(charactersToExport, destination.getAbsolutePath());
+                }
+                return null;
+            }
+        };
+        exportTask.setOnSucceeded(event -> {
+            statusLabel.setText("Exportación completada: " + destination.getAbsolutePath());
+            setCrudControlsDisabled(false);
+        });
+        exportTask.setOnFailed(event -> {
+            Throwable error = exportTask.getException();
+            statusLabel.setText("No se pudo exportar el fichero: "
+                    + (error == null ? "error desconocido" : error.getMessage()));
+            setCrudControlsDisabled(false);
+        });
+        Thread worker = new Thread(exportTask, "characters-export");
+        worker.setDaemon(true);
+        worker.start();
     }
 
     private void loadCharactersOnStartup() {
@@ -321,6 +385,7 @@ public class CharacterController {
         houseField.setDisable(disabled);
         genderField.setDisable(disabled);
         refreshButton.setDisable(disabled);
+        exportButton.setDisable(disabled);
     }
 
     private void applySearch() {

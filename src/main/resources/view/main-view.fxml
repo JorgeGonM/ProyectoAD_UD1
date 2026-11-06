@@ -37,6 +37,10 @@
                         text="Actualizar"
                         onAction="#refreshCharacters"
                         styleClass="refresh-button"/>
+                <Button fx:id="exportButton"
+                        text="Exportar"
+                        onAction="#exportCharacters"
+                        styleClass="export-button"/>
             </HBox>
         </VBox>
     </top>

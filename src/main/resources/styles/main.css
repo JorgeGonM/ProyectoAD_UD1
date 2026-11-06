@@ -60,7 +60,8 @@
     -fx-background-color: #1b222a;
 }
 
-.refresh-button {
+.refresh-button,
+.export-button {
     -fx-background-color: #9c3d37;
     -fx-background-radius: 5;
     -fx-text-fill: #fff8f0;
@@ -69,11 +70,20 @@
     -fx-cursor: hand;
 }
 
+.export-button {
+    -fx-background-color: #8a6b35;
+}
+
 .refresh-button:hover {
     -fx-background-color: #b84d44;
 }
 
-.refresh-button:disabled {
+.export-button:hover {
+    -fx-background-color: #a48142;
+}
+
+.refresh-button:disabled,
+.export-button:disabled {
     -fx-opacity: 0.65;
 }
 

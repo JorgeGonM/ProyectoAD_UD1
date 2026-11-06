@@ -4,40 +4,51 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import model.CharacterGoT;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 
 public class FileExporter {
 
     private static final ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    public static void exportToJSON(List<CharacterGoT> characters, String fileName) {
-        if (!fileName.endsWith(".json")) fileName += ".json";
-        try {
-            mapper.writeValue(new File(fileName), characters);
-            System.out.println("Fichero JSON exportado correctamente: " + fileName);
-        } catch (IOException e) {
-            System.err.println("Error al exportar JSON: " + e.getMessage());
+    public static void exportToJSON(List<CharacterGoT> characters, String fileName) throws IOException {
+        if (!fileName.toLowerCase(Locale.ROOT).endsWith(".json")) fileName += ".json";
+        mapper.writeValue(Path.of(fileName).toFile(), characters);
+    }
+
+    public static void exportToCSV(List<CharacterGoT> characters, String fileName) throws IOException {
+        if (!fileName.toLowerCase(Locale.ROOT).endsWith(".csv")) fileName += ".csv";
+        try (BufferedWriter writer = Files.newBufferedWriter(
+                Path.of(fileName), StandardCharsets.UTF_8)) {
+            writer.write("ID,Name,Culture,Gender,House\n");
+            for (CharacterGoT c : characters) {
+                writer.write(csvValue(c.getId() != 0 ? String.valueOf(c.getId()) : ""));
+                writer.write(',');
+                writer.write(csvValue(c.getName()));
+                writer.write(',');
+                writer.write(csvValue(c.getCulture()));
+                writer.write(',');
+                writer.write(csvValue(c.getGender()));
+                writer.write(',');
+                writer.write(csvValue(c.getHouse()));
+                writer.newLine();
+            }
         }
     }
 
-    public static void exportToCSV(List<CharacterGoT> characters, String fileName) {
-        if (!fileName.endsWith(".csv")) fileName += ".csv";
-        try (FileWriter writer = new FileWriter(fileName, false)) {
-            writer.write("ID,Name,Culture,Gender\n");
-            for (CharacterGoT c : characters) {
-                writer.write(String.format("%s,%s,%s,%s\n",
-                        c.getId() != 0 ? c.getId() : "",
-                        c.getName() != null ? c.getName() : "",
-                        c.getCulture() != null ? c.getCulture() : "",
-                        c.getGender() != null ? c.getGender() : ""
-                ));
-            }
-            System.out.println("Fichero CSV exportado correctamente: " + fileName);
-        } catch (IOException e) {
-            System.err.println("Error al exportar CSV: " + e.getMessage());
+    private static String csvValue(String value) {
+        if (value == null) {
+            return "";
         }
+        if (value.contains(",") || value.contains("\"")
+                || value.contains("\n") || value.contains("\r")) {
+            return "\"" + value.replace("\"", "\"\"") + "\"";
+        }
+        return value;
     }
 }

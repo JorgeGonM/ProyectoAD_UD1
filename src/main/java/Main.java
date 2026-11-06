@@ -121,7 +121,7 @@ public class Main {
                 FileExporter.exportToJSON(personajes, "personajes_exportados.json");
                 FileExporter.exportToCSV(personajes, "personajes_exportados.csv");
                 System.out.println("Ficheros JSON y CSV exportados correctamente en la raíz del proyecto.");
-            } catch (Exception e) {
+            } catch (IOException e) {
                 System.err.println("Detalle en la exportación de ficheros: " + e.getMessage());
             }
 
