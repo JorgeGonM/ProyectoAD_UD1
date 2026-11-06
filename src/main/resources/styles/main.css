@@ -1,0 +1,214 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #11151b;
+}
+
+.app-shell {
+    -fx-background-color: #11151b;
+}
+
+.top-panel {
+    -fx-background-color: linear-gradient(to bottom right, #202832, #171d25);
+    -fx-border-color: transparent transparent #343c46 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.eyebrow {
+    -fx-text-fill: #d3a85f;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2px;
+}
+
+.page-title {
+    -fx-text-fill: #f3efe7;
+    -fx-font-size: 29px;
+    -fx-font-weight: bold;
+}
+
+.archive-badge {
+    -fx-text-fill: #e8c987;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 11 7 11;
+    -fx-background-color: #373124;
+    -fx-background-radius: 4;
+    -fx-border-color: #675535;
+    -fx-border-radius: 4;
+}
+
+.search-field,
+.filter-box {
+    -fx-background-color: #11161c;
+    -fx-border-color: #3a434d;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: #ece7de;
+    -fx-prompt-text-fill: #87909a;
+    -fx-padding: 10 12 10 12;
+}
+
+.search-field:focused,
+.filter-box:focused {
+    -fx-border-color: #c69b52;
+}
+
+.filter-box .list-cell,
+.filter-box .list-view .list-cell {
+    -fx-text-fill: #ece7de;
+    -fx-background-color: #1b222a;
+}
+
+.refresh-button {
+    -fx-background-color: #9c3d37;
+    -fx-background-radius: 5;
+    -fx-text-fill: #fff8f0;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18 10 18;
+    -fx-cursor: hand;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #b84d44;
+}
+
+.refresh-button:disabled {
+    -fx-opacity: 0.65;
+}
+
+.content-panel {
+    -fx-background-color: #11151b;
+}
+
+.management-panel {
+    -fx-padding: 12 14 12 14;
+    -fx-background-color: #191f27;
+    -fx-background-radius: 6;
+    -fx-border-color: #303943;
+    -fx-border-radius: 6;
+}
+
+.form-field {
+    -fx-background-color: #11161c;
+    -fx-border-color: #3a434d;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: #ece7de;
+    -fx-prompt-text-fill: #87909a;
+    -fx-padding: 9 10 9 10;
+}
+
+.form-field:focused {
+    -fx-border-color: #c69b52;
+}
+
+.crud-button,
+.delete-button {
+    -fx-background-radius: 5;
+    -fx-text-fill: #fff8f0;
+    -fx-font-weight: bold;
+    -fx-padding: 9 15 9 15;
+    -fx-cursor: hand;
+}
+
+.crud-button {
+    -fx-background-color: #39434e;
+}
+
+.crud-button:hover {
+    -fx-background-color: #4a5663;
+}
+
+.delete-button {
+    -fx-background-color: #9c3d37;
+}
+
+.delete-button:hover {
+    -fx-background-color: #b84d44;
+}
+
+.crud-button:disabled,
+.delete-button:disabled {
+    -fx-opacity: 0.6;
+}
+
+.section-title {
+    -fx-text-fill: #d7d0c4;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1.5px;
+}
+
+.count-label {
+    -fx-text-fill: #d3a85f;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.characters-table {
+    -fx-background-color: #191f27;
+    -fx-background-radius: 6;
+    -fx-border-color: #303943;
+    -fx-border-radius: 6;
+    -fx-padding: 1;
+    -fx-table-cell-border-color: #2a323b;
+}
+
+.characters-table .column-header-background {
+    -fx-background-color: #242c35;
+    -fx-background-radius: 6 6 0 0;
+}
+
+.characters-table .column-header,
+.characters-table .filler {
+    -fx-background-color: transparent;
+    -fx-size: 42px;
+    -fx-border-color: transparent transparent #39434e transparent;
+}
+
+.characters-table .column-header .label {
+    -fx-text-fill: #d3a85f;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 12 0 12;
+}
+
+.characters-table .table-row-cell {
+    -fx-background-color: #191f27;
+    -fx-cell-size: 43px;
+}
+
+.characters-table .table-row-cell:odd {
+    -fx-background-color: #1c232c;
+}
+
+.characters-table .table-row-cell:hover {
+    -fx-background-color: #29323c;
+}
+
+.characters-table .table-row-cell:selected {
+    -fx-background-color: #46382c;
+}
+
+.characters-table .table-cell {
+    -fx-text-fill: #e5e0d7;
+    -fx-border-color: transparent;
+    -fx-padding: 0 12 0 12;
+}
+
+.characters-table .placeholder .label {
+    -fx-text-fill: #929aa4;
+}
+
+.status-bar {
+    -fx-background-color: #171d24;
+    -fx-border-color: #303943 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.status-text {
+    -fx-text-fill: #a6adb5;
+    -fx-font-size: 12px;
+}

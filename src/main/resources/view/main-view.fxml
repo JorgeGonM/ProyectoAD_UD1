@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ui.CharacterController"
+            styleClass="app-shell">
+    <top>
+        <VBox spacing="22" styleClass="top-panel">
+            <padding>
+                <Insets top="28" right="34" bottom="24" left="34"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="14">
+                <VBox spacing="4">
+                    <Label text="CRÓNICAS DE PONIENTE" styleClass="eyebrow"/>
+                    <Label text="Personajes" styleClass="page-title"/>
+                </VBox>
+                <Label text="ARCHIVO REAL" styleClass="archive-badge"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <TextField fx:id="searchField"
+                           promptText="Buscar por nombre o casa..."
+                           styleClass="search-field"
+                           HBox.hgrow="ALWAYS"/>
+                <ComboBox fx:id="genderFilter" prefWidth="160" styleClass="filter-box"/>
+                <Button fx:id="refreshButton"
+                        text="Actualizar"
+                        onAction="#refreshCharacters"
+                        styleClass="refresh-button"/>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="14" styleClass="content-panel">
+            <padding>
+                <Insets top="24" right="34" bottom="12" left="34"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT">
+                <Label text="REGISTRO DE PERSONAJES" styleClass="section-title"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Label fx:id="countLabel" text="0 personajes" styleClass="count-label"/>
+            </HBox>
+            <TableView fx:id="charactersTable" VBox.vgrow="ALWAYS" styleClass="characters-table">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="90" maxWidth="110"/>
+                    <TableColumn fx:id="nameColumn" text="Nombre" prefWidth="420"/>
+                    <TableColumn fx:id="houseColumn" text="Casa" prefWidth="280"/>
+                    <TableColumn fx:id="genderColumn" text="Género" prefWidth="180"/>
+                </columns>
+                <placeholder>
+                    <Label text="No hay personajes que coincidan con la búsqueda."/>
+                </placeholder>
+            </TableView>
+            <VBox spacing="10" styleClass="management-panel">
+                <Label text="GESTIÓN DE PERSONAJES" styleClass="section-title"/>
+                <HBox spacing="8">
+                    <TextField fx:id="idField" promptText="ID (opcional)" prefWidth="115" styleClass="form-field"/>
+                    <TextField fx:id="nameField" promptText="Nombre *" styleClass="form-field" HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="houseField" promptText="Casa" styleClass="form-field" HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="genderField" promptText="Género" prefWidth="150" styleClass="form-field"/>
+                </HBox>
+                <HBox spacing="8">
+                    <Button fx:id="addButton" text="Añadir" onAction="#addCharacter" styleClass="crud-button"/>
+                    <Button fx:id="updateButton" text="Modificar" onAction="#updateCharacter" styleClass="crud-button"/>
+                    <Button fx:id="deleteButton" text="Borrar" onAction="#deleteCharacter" styleClass="delete-button"/>
+                    <Button fx:id="clearButton" text="Limpiar" onAction="#clearEditor" styleClass="crud-button"/>
+                    <Label text="Selecciona una fila para modificarla o borrarla." styleClass="status-text"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="status-bar">
+            <padding>
+                <Insets top="12" right="34" bottom="16" left="34"/>
+            </padding>
+            <Label fx:id="statusLabel" text="Conectando con el archivo..." styleClass="status-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>
