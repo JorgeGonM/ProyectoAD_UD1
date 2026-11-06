@@ -50,6 +50,8 @@ public class 	CharacterGoT {
 	@JsonProperty("culture")
 	private String culture;
 
+	private String house;
+
 	@JsonProperty("tvSeries")
 	private List<String> tvSeries = new ArrayList<>();
 
@@ -132,6 +134,12 @@ public class 	CharacterGoT {
 
 	public void setUrl(String url){
 		this.url = url;
+		if (url != null) {
+			String idFromUrl = url.substring(url.lastIndexOf('/') + 1);
+			if (idFromUrl.matches("\\d+")) {
+				this.id = Integer.parseInt(idFromUrl);
+			}
+		}
 	}
 
 	public String getUrl(){
@@ -168,6 +176,14 @@ public class 	CharacterGoT {
 
 	public String getCulture(){
 		return culture;
+	}
+
+	public void setHouse(String house){
+		this.house = house;
+	}
+
+	public String getHouse(){
+		return house;
 	}
 
 	public void setTvSeries(List<String> tvSeries){
